@@ -1,0 +1,48 @@
+﻿@model GYMSystem.Models.Subscription
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Subscription</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SubscriptionName" class="control-label"></label>
+                <input asp-for="SubscriptionName" class="form-control" />
+                <span asp-validation-for="SubscriptionName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubscriptionPrice" class="control-label"></label>
+                <input asp-for="SubscriptionPrice" class="form-control" />
+                <span asp-validation-for="SubscriptionPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubscriptionPeriod" class="control-label"></label>
+                <input asp-for="SubscriptionPeriod" class="form-control" />
+                <span asp-validation-for="SubscriptionPeriod" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="SubscriptionStatus" /> @Html.DisplayNameFor(model => model.SubscriptionStatus)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

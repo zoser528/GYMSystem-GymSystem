@@ -1,0 +1,25 @@
+﻿@model GYMSystem.Models.Client
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "User", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName)
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserPassword)
+        @Html.PasswordFor(m => m.UserPassword, new { @class = "form-control" })
+    </div>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+    }
+
+    <button type="submit" class="btn btn-primary">Login</button>
+}

@@ -1,0 +1,83 @@
+﻿@model IEnumerable<GYMSystem.Models.Trainer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TrainerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.stillWork)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.trainerSalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HiringDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.trainerNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.trainerAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.trainerEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubscriptionSalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Counter)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stillWork)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.trainerSalary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HiringDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.trainerNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.trainerAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.trainerEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubscriptionSalary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Counter)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TrainerId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TrainerId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TrainerId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

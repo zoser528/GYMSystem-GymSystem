@@ -1,0 +1,93 @@
+﻿@*@model IEnumerable<GYMSystem.Models.Client>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DOB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubscriptionDate)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.ClientAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClientEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().DepartmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().BranchName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().SubscriptionName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().TrainerName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DOB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubscriptionDate)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClientEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentName)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.BranchName)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.SubscriptionName)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.TrainerName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ClientId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ClientId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ClientId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+*@
+<h1>HI</h1>
