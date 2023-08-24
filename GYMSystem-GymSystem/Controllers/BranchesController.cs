@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GYMSystem.Controllers
 {
-    [Authorize]
+    [Authorize("AdminRole")]
 
     public class BranchesController : Controller
     {

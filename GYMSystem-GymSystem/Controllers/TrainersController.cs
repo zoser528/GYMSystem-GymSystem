@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GYMSystem.Controllers
 {
-    [Authorize]
 
     public class TrainersController : Controller
     {
