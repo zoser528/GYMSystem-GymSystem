@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using GYMSystem_GymSystem.Data;
 using GYMSystem_GymSystem.Models;
 using Microsoft.AspNetCore.Authorization;
+using GYMSystem_GymSystem.Data;
 
 namespace GYMSystem_GymSystem.Areas.Admin.Controllers
 {
@@ -24,10 +24,41 @@ namespace GYMSystem_GymSystem.Areas.Admin.Controllers
         }
 
         // GET: Admin/Clients
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var applicationDbContext = _context.Clients.Include(c => c.Branch).Include(c => c.Department).Include(c => c.Subscription).Include(c => c.Trainer);
-            return View(await applicationDbContext.ToListAsync());
+            var client = GetClients();
+
+            return View(client);
+        }
+        private List<Client> GetClients()
+        {
+            var clients = (from Client in _context.Clients
+                           join department in _context.Departments on Client.Departmentid equals department.DepartmentId
+                           join trainer in _context.Trainers on Client.Trainerid equals trainer.TrainerId
+                           join subscription in _context.Subscriptions on Client.Subscriptionid equals subscription.SubscriptionId
+                           join branch in _context.Branches on Client.Branchid equals branch.BranchId
+
+                           select new Client
+                           {
+                               ClientId = Client.ClientId,
+                               ClientName = Client.ClientName,
+                               ClientNumber = Client.ClientNumber,
+                               DOB = Client.DOB,
+                               SubscriptionDate = Client.SubscriptionDate,
+                               ClientAddress = Client.ClientAddress,
+                               Departmentid = Client.Departmentid,
+                               DepartmentName = department.DepartmentName,
+                               Trainerid = Client.Trainerid,
+                               TrainerName = trainer.TrainerName,
+                               Subscriptionid = Client.Subscriptionid,
+                               SubscriptionName = subscription.SubscriptionName,
+                               Branchid = Client.Branchid,
+                               BranchName = branch.BranchName
+
+
+
+                           }).ToList();
+            return clients;
         }
 
         // GET: Admin/Clients/Details/5
@@ -186,5 +217,6 @@ namespace GYMSystem_GymSystem.Areas.Admin.Controllers
         {
           return (_context.Clients?.Any(e => e.ClientId == id)).GetValueOrDefault();
         }
+
     }
 }

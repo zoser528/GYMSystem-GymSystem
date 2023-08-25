@@ -1,4 +1,5 @@
 using GYMSystem_GymSystem.Data;
+using GYMSystem_GymSystem.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

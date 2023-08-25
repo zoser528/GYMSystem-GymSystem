@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GYMSystem.Models;
-using GYMSystem_GymSystem.Data;
 using Microsoft.AspNetCore.Authorization;
+using GYMSystem_GymSystem.Models;
+using GYMSystem_GymSystem.Data;
 
 namespace GYMSystem.Controllers
 {

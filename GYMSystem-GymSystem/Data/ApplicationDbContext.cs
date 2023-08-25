@@ -18,6 +18,6 @@ namespace GYMSystem_GymSystem.Data
         public DbSet<Trainer> Trainers { get; set; }
         public DbSet<Branch> Branches { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
-        
+
     }
 }

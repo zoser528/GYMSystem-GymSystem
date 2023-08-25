@@ -20,15 +20,7 @@ namespace GYMSystem_GymSystem.Models
         [MaxLength(100)]
         public string ClientName { get; set; }
 
-        [Required]
-        [Column(TypeName = "nvarchar(50)")]
-        [Display(Name = "User Name")]
-        public string UserName { get; set; }
-
-        [Required]
-        [Column(TypeName = "nvarchar(50)")]
-        [Display(Name = "User Password")]
-        public string UserPassword { get; set; }
+        
 
         [Required]
         [Display(Name = "Client Number")]
@@ -48,11 +40,6 @@ namespace GYMSystem_GymSystem.Models
         [Required]
         [Display(Name = "Client address")]
         public string ClientAddress { get; set; }
-        [Required]
-        [StringLength(50)]
-        [DataType(DataType.EmailAddress)]
-        [Display(Name = "Client email")]
-        public string ClientEmail { get; set; }
 
 
         [Required]
