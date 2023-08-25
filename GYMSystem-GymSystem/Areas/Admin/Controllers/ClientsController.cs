@@ -5,149 +5,186 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
 using GYMSystem_GymSystem.Data;
-using GYMSystem_GymSystem.Areas.Admin.Models;
+using GYMSystem_GymSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GYMSystem_GymSystem.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     [Authorize("AdminRole")]
+
     public class ClientsController : Controller
     {
-        private readonly ApplicationDbContext _dbContext;
+        private readonly ApplicationDbContext _context;
 
-        public ClientsController(ApplicationDbContext dbContext)
+        public ClientsController(ApplicationDbContext context)
         {
-            _dbContext = dbContext;
-        }
-        public IActionResult Index()
-        {
-            var client = GetClients();
-
-            return View(client);
-        }
-        private List<Client> GetClients()
-        {
-            var clients = (from Client in _dbContext.Clients
-                           join department in _dbContext.Departments on Client.Departmentid equals department.DepartmentId
-                           join trainer in _dbContext.Trainers on Client.Trainerid equals trainer.TrainerId
-                           join subscription in _dbContext.Subscriptions on Client.Subscriptionid equals subscription.SubscriptionId
-                           join branch in _dbContext.Branches on Client.Branchid equals branch.BranchId
-
-                           select new Client
-                           {
-                               ClientId = Client.ClientId,
-                               ClientName = Client.ClientName,
-                               ClientNumber = Client.ClientNumber,
-                               DOB = Client.DOB,
-                               SubscriptionDate = Client.SubscriptionDate,
-                               ClientAddress = Client.ClientAddress,
-                               ClientEmail = Client.ClientEmail,
-                               Departmentid = Client.Departmentid,
-                               DepartmentName = department.DepartmentName,
-                               Trainerid = Client.Trainerid,
-                               TrainerName = trainer.TrainerName,
-                               Subscriptionid = Client.Subscriptionid,
-                               SubscriptionName = subscription.SubscriptionName,
-                               Branchid = Client.Branchid,
-                               BranchName = branch.BranchName
-
-
-
-                           }).ToList();
-            return clients;
+            _context = context;
         }
 
-
-
-        [HttpGet]
-        public IActionResult Edit(int id)
+        // GET: Admin/Clients
+        public async Task<IActionResult> Index()
         {
-            ViewBag.Departments = _dbContext.Departments.ToList();
-            ViewBag.Trainers = _dbContext.Trainers.ToList();
-            ViewBag.Subscriptions = _dbContext.Subscriptions.ToList();
-            ViewBag.Branches = _dbContext.Branches.ToList();
+            var applicationDbContext = _context.Clients.Include(c => c.Branch).Include(c => c.Department).Include(c => c.Subscription).Include(c => c.Trainer);
+            return View(await applicationDbContext.ToListAsync());
+        }
 
+        // GET: Admin/Clients/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || _context.Clients == null)
+            {
+                return NotFound();
+            }
 
-
-            Client client = _dbContext.Clients.Find(id);
+            var client = await _context.Clients
+                .Include(c => c.Branch)
+                .Include(c => c.Department)
+                .Include(c => c.Subscription)
+                .Include(c => c.Trainer)
+                .FirstOrDefaultAsync(m => m.ClientId == id);
             if (client == null)
             {
                 return NotFound();
             }
-            else
-            {
 
-                return View(client);
-            }
+            return View(client);
         }
-        [HttpPost]
-        public IActionResult Edit(Client client)
+
+        // GET: Admin/Clients/Create
+        public IActionResult Create()
         {
+            ViewData["Branchid"] = new SelectList(_context.Branches, "BranchId", "BranchLocation");
+            ViewData["Departmentid"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentCode");
+            ViewData["Subscriptionid"] = new SelectList(_context.Subscriptions, "SubscriptionId", "SubscriptionName");
+            ViewData["Trainerid"] = new SelectList(_context.Trainers, "TrainerId", "TrainerName");
+            return View();
+        }
+
+        // POST: Admin/Clients/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("ClientId,ClientName,UserName,UserPassword,ClientNumber,DOB,SubscriptionDate,ClientAddress,ClientEmail,Branchid,Departmentid,Trainerid,Subscriptionid")] Client client)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(client);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["Branchid"] = new SelectList(_context.Branches, "BranchId", "BranchLocation", client.Branchid);
+            ViewData["Departmentid"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentCode", client.Departmentid);
+            ViewData["Subscriptionid"] = new SelectList(_context.Subscriptions, "SubscriptionId", "SubscriptionName", client.Subscriptionid);
+            ViewData["Trainerid"] = new SelectList(_context.Trainers, "TrainerId", "TrainerName", client.Trainerid);
+            return View(client);
+        }
+
+        // GET: Admin/Clients/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || _context.Clients == null)
+            {
+                return NotFound();
+            }
+
+            var client = await _context.Clients.FindAsync(id);
+            if (client == null)
+            {
+                return NotFound();
+            }
+            ViewData["Branchid"] = new SelectList(_context.Branches, "BranchId", "BranchLocation", client.Branchid);
+            ViewData["Departmentid"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentCode", client.Departmentid);
+            ViewData["Subscriptionid"] = new SelectList(_context.Subscriptions, "SubscriptionId", "SubscriptionName", client.Subscriptionid);
+            ViewData["Trainerid"] = new SelectList(_context.Trainers, "TrainerId", "TrainerName", client.Trainerid);
+            return View(client);
+        }
+
+        // POST: Admin/Clients/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ClientId,ClientName,UserName,UserPassword,ClientNumber,DOB,SubscriptionDate,ClientAddress,ClientEmail,Branchid,Departmentid,Trainerid,Subscriptionid")] Client client)
+        {
+            if (id != client.ClientId)
+            {
+                return NotFound();
+            }
 
             if (ModelState.IsValid)
             {
-                _dbContext.Entry(client).State = EntityState.Modified;
-                _dbContext.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(client);
-        }
-        [HttpGet]
-        public IActionResult Delete(int id)
-        {
-            Client client = _dbContext.Clients.Find(id);
-            if (client == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-
-                return View(client);
-            }
-        }
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
-        {
-
-            Client client = _dbContext.Clients.Find(id);
-            if (client.Trainerid != null)
-            {
-                var trainer = _dbContext.Trainers.Find(client.Trainerid);
-                if (trainer != null)
+                try
                 {
-                    trainer.Counter--;
+                    _context.Update(client);
+                    await _context.SaveChangesAsync();
                 }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ClientExists(client.ClientId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
             }
-            _dbContext.Clients.Remove(client);
-            _dbContext.SaveChanges();
-            return RedirectToAction("Index");
+            ViewData["Branchid"] = new SelectList(_context.Branches, "BranchId", "BranchLocation", client.Branchid);
+            ViewData["Departmentid"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentCode", client.Departmentid);
+            ViewData["Subscriptionid"] = new SelectList(_context.Subscriptions, "SubscriptionId", "SubscriptionName", client.Subscriptionid);
+            ViewData["Trainerid"] = new SelectList(_context.Trainers, "TrainerId", "TrainerName", client.Trainerid);
+            return View(client);
         }
-        [HttpGet]
-        public IActionResult Details(int id)
+
+        // GET: Admin/Clients/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
-            Client client = _dbContext.Clients.Find(id);
+            if (id == null || _context.Clients == null)
+            {
+                return NotFound();
+            }
+
+            var client = await _context.Clients
+                .Include(c => c.Branch)
+                .Include(c => c.Department)
+                .Include(c => c.Subscription)
+                .Include(c => c.Trainer)
+                .FirstOrDefaultAsync(m => m.ClientId == id);
             if (client == null)
             {
                 return NotFound();
             }
-            else
-            {
-                return View(client);
-            }
-        }
-        [HttpPost]
-        public IActionResult Details(Client client)
-        {
-            if (ModelState.IsValid)
-            {
-                _dbContext.Entry(client).State = EntityState.Modified;
-                _dbContext.SaveChanges();
-                return RedirectToAction("Index");
-            }
+
             return View(client);
         }
 
+        // POST: Admin/Clients/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            if (_context.Clients == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Clients'  is null.");
+            }
+            var client = await _context.Clients.FindAsync(id);
+            if (client != null)
+            {
+                _context.Clients.Remove(client);
+            }
+            
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool ClientExists(int id)
+        {
+          return (_context.Clients?.Any(e => e.ClientId == id)).GetValueOrDefault();
+        }
     }
 }

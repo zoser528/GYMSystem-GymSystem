@@ -1,5 +1,5 @@
 ﻿using GYMSystem.Models;
-using GYMSystem_GymSystem.Areas.Admin.Models;
+using GYMSystem_GymSystem.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

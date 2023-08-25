@@ -41,16 +41,19 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapDefaultControllerRoute();
-    //endpoints.MapControllerRoute(
-    //    name: "Default",
-    //    pattern: "bookApp/{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapControllerRoute(
+      name: "Admin",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
 
     endpoints.MapControllerRoute(
-        name: "areas",
-        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
 });
 
+
+app.MapRazorPages();
 
 app.MapRazorPages();
 

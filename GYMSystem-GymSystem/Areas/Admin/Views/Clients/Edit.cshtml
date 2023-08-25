@@ -1,17 +1,18 @@
 ﻿@model GYMSystem_GymSystem.Models.Client
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
 
 <h4>Client</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ClientId" />
             <div class="form-group">
                 <label asp-for="ClientName" class="control-label"></label>
                 <input asp-for="ClientName" class="form-control" />
@@ -54,22 +55,26 @@
             </div>
             <div class="form-group">
                 <label asp-for="Branchid" class="control-label"></label>
-                <select asp-for="Branchid" class ="form-control" asp-items="ViewBag.Branchid"></select>
+                <select asp-for="Branchid" class="form-control" asp-items="ViewBag.Branchid"></select>
+                <span asp-validation-for="Branchid" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Departmentid" class="control-label"></label>
-                <select asp-for="Departmentid" class ="form-control" asp-items="ViewBag.Departmentid"></select>
+                <select asp-for="Departmentid" class="form-control" asp-items="ViewBag.Departmentid"></select>
+                <span asp-validation-for="Departmentid" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Trainerid" class="control-label"></label>
-                <select asp-for="Trainerid" class ="form-control" asp-items="ViewBag.Trainerid"></select>
+                <select asp-for="Trainerid" class="form-control" asp-items="ViewBag.Trainerid"></select>
+                <span asp-validation-for="Trainerid" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Subscriptionid" class="control-label"></label>
-                <select asp-for="Subscriptionid" class ="form-control" asp-items="ViewBag.Subscriptionid"></select>
+                <select asp-for="Subscriptionid" class="form-control" asp-items="ViewBag.Subscriptionid"></select>
+                <span asp-validation-for="Subscriptionid" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
