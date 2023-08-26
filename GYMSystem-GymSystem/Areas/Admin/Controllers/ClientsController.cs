@@ -44,7 +44,6 @@ namespace GYMSystem_GymSystem.Areas.Admin.Controllers
                                ClientName = Client.ClientName,
                                ClientNumber = Client.ClientNumber,
                                DOB = Client.DOB,
-                               SubscriptionDate = Client.SubscriptionDate,
                                ClientAddress = Client.ClientAddress,
                                Departmentid = Client.Departmentid,
                                DepartmentName = department.DepartmentName,
@@ -86,11 +85,19 @@ namespace GYMSystem_GymSystem.Areas.Admin.Controllers
         // GET: Admin/Clients/Create
         public IActionResult Create()
         {
-            ViewData["Branchid"] = new SelectList(_context.Branches, "BranchId", "BranchLocation");
-            ViewData["Departmentid"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentCode");
-            ViewData["Subscriptionid"] = new SelectList(_context.Subscriptions, "SubscriptionId", "SubscriptionName");
-            ViewData["Trainerid"] = new SelectList(_context.Trainers, "TrainerId", "TrainerName");
-            return View();
+            if (ModelState.IsValid)
+            {
+                ViewData["Branchid"] = new SelectList(_context.Branches, "BranchId", "BranchLocation");
+                ViewData["Departmentid"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentCode");
+                ViewData["Subscriptionid"] = new SelectList(_context.Subscriptions, "SubscriptionId", "SubscriptionName");
+                ViewData["Trainerid"] = new SelectList(_context.Trainers, "TrainerId", "TrainerName");
+                return View();
+            }
+            else
+            {
+                return NotFound(); 
+            }
+
         }
 
         // POST: Admin/Clients/Create
@@ -100,6 +107,20 @@ namespace GYMSystem_GymSystem.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ClientId,ClientName,UserName,UserPassword,ClientNumber,DOB,SubscriptionDate,ClientAddress,ClientEmail,Branchid,Departmentid,Trainerid,Subscriptionid")] Client client)
         {
+            //if (client.Active == null && client.pay == null)
+            //{ 
+            //    client.Active=false;
+            //    client.pay = false;
+            //}
+            ModelState.Remove("Branch");
+            ModelState.Remove("BranchName");
+            ModelState.Remove("Department");
+            ModelState.Remove("DepartmentName");
+            ModelState.Remove("SubscriptionName");
+            ModelState.Remove("Subscription");
+            ModelState.Remove("TrainerName");
+            ModelState.Remove("TrainerId");
+
             if (ModelState.IsValid)
             {
                 _context.Add(client);
