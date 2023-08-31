@@ -1,0 +1,183 @@
+﻿@model GYMSystem_GymSystem.Models.Client
+
+
+@{
+    ViewData["Title"] = "Save";
+}
+
+
+<link rel="stylesheet" href="~/css/Invoice.css" asp-append-version="true" />
+
+
+@{
+    // Cast the values to appropriate types (e.g., decimal or int)
+    decimal subscriptionPrice = ViewData["SubscriptionPrice"] != null ? Convert.ToDecimal(ViewData["SubscriptionPrice"]) : 0;
+    decimal TrainerSubscriptionSalary = ViewData["SubscriptionSalary"] != null ? Convert.ToDecimal(ViewData["SubscriptionSalary"]) : 0;
+    decimal SubscriptionPrice = ViewData["SubscriptionPrice"] != null ? Convert.ToDecimal(ViewData["SubscriptionPrice"]) : 0;
+    
+
+    int period = ViewData["Period"] != null ? Convert.ToInt32(ViewData["Period"]) : 0;
+
+    // Perform the addition
+    decimal result = subscriptionPrice / period;
+    string formattedResult = result.ToString("0.00");
+    decimal TrainerTotalSub = TrainerSubscriptionSalary * period;
+    decimal SUBTOTAL = (SubscriptionPrice + TrainerTotalSub);
+    decimal TAX_25 = (decimal)0.14 * (decimal)SUBTOTAL;
+    decimal GRAND_TOTAL = TAX_25 + SUBTOTAL;
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bootstrap User Management Data Table</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <div id="invoice">
+                    <div class="toolbar hidden-print">
+                        <div class="text-end">
+                            <button type="button" id="printButton" class="btn btn-dark"><i class="fa fa-print"></i> Print</button>
+                            <button type="button" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="invoice overflow-auto">
+                        <div style="min-width: 600px">
+                            <header>
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="javascript:;">
+                                            <img src="assets/images/logo-icon.png" width="80" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="col company-details">
+                                        <h2 class="name">
+                                            <a target="_blank" href="javascript:;">
+                                                Arboshiki
+                                            </a>
+                                        </h2>
+                                        <div>455 Foggy Heights, AZ 85004, US</div>
+                                        <div>(123) 456-789</div>
+                                        <div>company@example.com</div>
+                                    </div>
+                                </div>
+                            </header>
+                            <main>
+                                <div class="row contacts">
+                                    <div class="col invoice-to">
+                                        <div class="text-gray-light">INVOICE TO:</div>
+                                        <h2 class="to">@Html.DisplayFor(modelItem => modelItem.ClientName)</h2>
+                                        <div class="address">@Html.DisplayNameFor(model => model.ClientAddress)</div>
+                                        <div class="email">
+                                            <a href="mailto:john@example.com">@User.Identity?.Name</a>
+                                        </div>
+                                    </div>
+                                    <div class="col invoice-details">
+                                        <h1 class="invoice-id">INVOICE @Model.ClientId</h1>
+                                        <div class="date">Date of Invoice: @DateTime.Now</div>
+                                        <div class="date">Date of End subscription: @DateTime.Now.AddMonths(period)</div>
+                                    </div>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th class="text-left">DESCRIPTION</th>
+                                            <th class="text-right">number of months</th>
+                                            <th class="text-right">Cost of months</th>
+                                            <th class="text-right">TOTAL</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="no">04</td>
+                                            <td class="text-left">
+                                                <h3>
+                                                    <a target="_blank" href="javascript:;"> subscription Name  </a>
+                                                </h3>
+                                                @ViewData["SubscriptionName"]
+                                            </td>
+                                            <td class="unit">@ViewData["Period"]</td>
+                                            <td class="qty">$@formattedResult</td>
+                                            <td class="total">$@ViewData["SubscriptionPrice"]</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="no">01</td>
+                                            <td class="text-left">
+                                                <h3>GYM Branch</h3>@ViewData["BranchName"]
+                                            </td>
+                                            <td class="unit">00.00</td>
+                                            <td class="qty">00</td>
+                                            <td class="total">$00.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="no">02</td>
+                                            <td class="text-left">
+                                                <h3>Trainer</h3> @ViewData["TrainerName"]
+                                            </td>
+                                            <td class="unit">@ViewData["Period"]</td>
+                                            <td class="qty">$@ViewData["SubscriptionSalary"]</td>
+                                            <td class="total">$@TrainerTotalSub</td>
+                                        </tr>
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td colspan="2">SUBTOTAL</td>
+                                            <td>$@SUBTOTAL</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td colspan="2">TAX 25%</td>
+                                            <td>$@TAX_25</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td colspan="2">GRAND TOTAL</td>
+                                            <td>$@GRAND_TOTAL</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <div class="thanks">Thank you!</div>
+                                <div class="notices">
+                                    <div>NOTICE:</div>
+                                    <div class="notice">This invoice follows all the rights of the Egyptian Consumer Protection Authority.</div>
+                                </div>
+                            </main>
+                            <footer>Invoice was created on a computer and is valid without the signature and seal.</footer>
+                        </div>
+                        <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // Get a reference to the print button
+    const printButton = document.getElementById('printButton');
+
+    // Add a click event listener to the print button
+    printButton.addEventListener('click', () => {
+        // Call the window.print() function to open the print dialog
+        window.print();
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+</html>
+

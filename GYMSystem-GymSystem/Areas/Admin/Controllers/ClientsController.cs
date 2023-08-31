@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using GYMSystem_GymSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using GYMSystem_GymSystem.Data;
+using GYMSystem.Models;
+using Humanizer;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.VisualBasic;
 
 namespace GYMSystem_GymSystem.Areas.Admin.Controllers
 {
@@ -22,7 +26,9 @@ namespace GYMSystem_GymSystem.Areas.Admin.Controllers
         {
             _context = context;
         }
-
+        public DateAndTime TimeNow { get; set; }
+        
+        
         // GET: Admin/Clients
         public IActionResult Index()
         {
@@ -52,9 +58,10 @@ namespace GYMSystem_GymSystem.Areas.Admin.Controllers
                                Subscriptionid = Client.Subscriptionid,
                                SubscriptionName = subscription.SubscriptionName,
                                Branchid = Client.Branchid,
-                               BranchName = branch.BranchName
-
-
+                               BranchName = branch.BranchName,
+                               End_Subscription = Client.End_Subscription,
+                               pay = Client.pay,
+                               Active = Client.Active
 
                            }).ToList();
             return clients;
@@ -107,11 +114,7 @@ namespace GYMSystem_GymSystem.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ClientId,ClientName,UserName,UserPassword,ClientNumber,DOB,SubscriptionDate,ClientAddress,ClientEmail,Branchid,Departmentid,Trainerid,Subscriptionid")] Client client)
         {
-            //if (client.Active == null && client.pay == null)
-            //{ 
-            //    client.Active=false;
-            //    client.pay = false;
-            //}
+            
             ModelState.Remove("Branch");
             ModelState.Remove("BranchName");
             ModelState.Remove("Department");
@@ -120,9 +123,11 @@ namespace GYMSystem_GymSystem.Areas.Admin.Controllers
             ModelState.Remove("Subscription");
             ModelState.Remove("TrainerName");
             ModelState.Remove("TrainerId");
-
+            var subscription = await _context.Subscriptions.FindAsync(client.Subscriptionid);
+            
             if (ModelState.IsValid)
             {
+                client.End_Subscription = (DateTime.Now.AddMonths(subscription.SubscriptionPeriod));
                 _context.Add(client);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -133,6 +138,8 @@ namespace GYMSystem_GymSystem.Areas.Admin.Controllers
             ViewData["Trainerid"] = new SelectList(_context.Trainers, "TrainerId", "TrainerName", client.Trainerid);
             return View(client);
         }
+      
+
 
         // GET: Admin/Clients/Edit/5
         public async Task<IActionResult> Edit(int? id)

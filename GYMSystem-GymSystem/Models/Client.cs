@@ -40,6 +40,8 @@ namespace GYMSystem_GymSystem.Models
         [Display(Name = "Client address")]
         public string ClientAddress { get; set; }
 
+        [Display(Name = "Date of end Subscription")]
+        public DateTime End_Subscription { get; set; }
 
         [Display(Name = "paid or Not")]
         public bool pay { get; set; }
@@ -54,7 +56,7 @@ namespace GYMSystem_GymSystem.Models
 
         [Display(Name = "Branch")]
         [NotMapped]
-        public string BranchName { get; set; }
+        public string? BranchName { get; set; }
 
         [Required]
         [ForeignKey("Department")]
@@ -78,7 +80,7 @@ namespace GYMSystem_GymSystem.Models
 
         [Display(Name = "Subscription")]
         [NotMapped]
-        public string SubscriptionName { get; set; }
+        public string? SubscriptionName { get; set; }
 
 
 

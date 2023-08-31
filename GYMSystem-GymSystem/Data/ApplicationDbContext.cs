@@ -10,7 +10,6 @@ namespace GYMSystem_GymSystem.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
-
         }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Department> Departments { get; set; }
