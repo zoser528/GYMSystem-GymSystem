@@ -13,6 +13,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\lib\images\back1.jpg" />
+    <None Include="wwwroot\lib\images\background-3-1.jpg" />
+    <None Include="wwwroot\lib\images\coach 1.jpg" />
+    <None Include="wwwroot\lib\images\coache 2.jpg" />
+    <None Include="wwwroot\lib\images\coache 4.jpg" />
+    <None Include="wwwroot\lib\images\GYM_1.jpg" />
+    <None Include="wwwroot\lib\images\GYM_2.jpg" />
+    <None Include="wwwroot\lib\images\GYM_3.jpg" />
+    <None Include="wwwroot\lib\images\GYM_4.jpg" />
+    <None Include="wwwroot\lib\images\GYM_5.jpg" />
+    <None Include="wwwroot\lib\images\GYM_6.jpg" />
+    <None Include="wwwroot\lib\images\logo white.png" />
+    <None Include="wwwroot\lib\images\Web_Banner__2_.webp" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.10" />
