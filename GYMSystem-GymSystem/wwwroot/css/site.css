@@ -19,9 +19,8 @@ html {
 }
 
 body {
-    font-family: "Work Sans", sans-serif;
-    font-family: 'Brygada 1918', serif;
-    ;
+    font-family: 'Varela Round', sans-serif;
+    background-color: white;
 }
 
 .container {
@@ -119,7 +118,6 @@ body {
 
 
 .textP {
-    font-family: 'arial black';
     font-size: 120px;
     text-align: center;
     padding: 23px;
@@ -205,7 +203,6 @@ body {
 
 #textSlider div {
     color: #FFF;
-    font-family: 'Lato', sans-serif;
     text-transform: uppercase;
 }
 

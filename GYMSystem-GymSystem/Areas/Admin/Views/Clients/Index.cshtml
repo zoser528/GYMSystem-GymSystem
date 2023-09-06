@@ -25,12 +25,7 @@
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
     <style>
-        body {
-            color: #566787;
-            background: #f5f5f5;
-            font-family: 'Varela Round', sans-serif;
-            font-size: 13px;
-        }
+        
 
         .table-responsive {
             margin: 30px 0;
@@ -235,7 +230,7 @@
                             <h2>User <b>Management</b></h2>
                         </div>
                         <div class="col-sm-7">
-                            <a href="#" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>
+                            <a href="@Url.Action("ExportToExcel")" class="btn btn-primary"><i class="material-icons">&#xE24D;</i> <span>Export to Excel</span></a>
                             <a asp-action="Create" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New User</span></a>
 
                         </div>
