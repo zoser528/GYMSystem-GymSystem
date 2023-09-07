@@ -129,11 +129,11 @@ $(function () {
             $(".services-de").hide(1000);
             $(".special-type").hide(500);
         }
-        if (sc > 0) {
-            navLinks.classList.remove('bg-transparent')
-        } else {
-            navLinks.classList.toggle('bg-transparent')
-        }
+        //if (sc > 0) {
+        //    navLinks.classList.remove('bg-transparent')
+        //} else {
+        //    navLinks.classList.toggle('bg-transparent')
+        //}
 
     })
 })

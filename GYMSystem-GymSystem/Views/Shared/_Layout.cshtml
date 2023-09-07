@@ -28,67 +28,76 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-dark text-yellow  bg-dark  ">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GYMSystem_GymSystem</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img class="logo1" src="/lib/images/logo white.png" alt="" height="120px" width="175px" margin-bottom="-45px" margin-top="-49px">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto  mb-2 mb-lg-0">
+                        
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" href="#services">Services</a>
                         </li>
-                        
-                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="#portfolio">Coaches</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
 
-
+                        <li class="nav-item">
+                                <a class="nav-link " asp-area="User" asp-controller="Users" asp-action="Create">Create</a>
+                        </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Departments" asp-action="Index">Departments</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Branches" asp-action="Index">Braches</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Trainers" asp-action="Index">Trainers</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="User" asp-controller="Users" asp-action="Create">Create</a>
-                            </li>
-                            
-                            
-                            
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     CEO
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li>
-                                        <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="Finance" asp-action="Index">Finances</a>
-                                    </li>
-                                    
-                                    <li>
-                                        <a class="dropdown-item text-dark" asp-area="Admin" asp-controller="Clients" asp-action="Index">Clients</a>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Finance" asp-action="Index">Finance</a>
                                     </li>
 
                                     <li>
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Branches" asp-action="Index">Braches</a>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Clients" asp-action="Index">Clients</a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Branches" asp-action="Index">Braches</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Departments" asp-action="Index">Departments</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Branches" asp-action="Index">Braches</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Trainers" asp-action="Index">Trainers</a>
                                     </li>
                                 </ul>
                             </div>
                         }
-                        
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
+        <!--  End of navbar -->
     </header>
     <div>
         <main role="main">

@@ -7,10 +7,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GYMSystem.Models;
 using GYMSystem_GymSystem.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GYMSystem_GymSystem.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize("AdminRole")]
+
     public class SubscriptionsController : Controller
     {
         private readonly ApplicationDbContext _context;

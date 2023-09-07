@@ -10,9 +10,12 @@ using Microsoft.AspNetCore.Authorization;
 using GYMSystem_GymSystem.Models;
 using GYMSystem_GymSystem.Data;
 
-namespace GYMSystem.Controllers
+namespace GYMSystem_GymSystem.Areas.Admin.Controllers
 {
     [Authorize("AdminRole")]
+    [Area("Admin")]
+
+
 
     public class BranchesController : Controller
     {
