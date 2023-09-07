@@ -1,0 +1,79 @@
+﻿@model GYMSystem_GymSystem.Models.Client
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Client</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ClientName" class="control-label"></label>
+                <input asp-for="ClientName" class="form-control" />
+                <span asp-validation-for="ClientName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClientNumber" class="control-label"></label>
+                <input asp-for="ClientNumber" class="form-control" />
+                <span asp-validation-for="ClientNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DOB" class="control-label"></label>
+                <input asp-for="DOB" class="form-control" />
+                <span asp-validation-for="DOB" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClientAddress" class="control-label"></label>
+                <input asp-for="ClientAddress" class="form-control" />
+                <span asp-validation-for="ClientAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="End_Subscription" class="control-label"></label>
+                <input asp-for="End_Subscription" class="form-control" />
+                <span asp-validation-for="End_Subscription" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="pay" /> @Html.DisplayNameFor(model => model.pay)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Branchid" class="control-label"></label>
+                <select asp-for="Branchid" class ="form-control" asp-items="ViewBag.Branchid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Departmentid" class="control-label"></label>
+                <select asp-for="Departmentid" class ="form-control" asp-items="ViewBag.Departmentid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Trainerid" class="control-label"></label>
+                <select asp-for="Trainerid" class ="form-control" asp-items="ViewBag.Trainerid"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subscriptionid" class="control-label"></label>
+                <select asp-for="Subscriptionid" class ="form-control" asp-items="ViewBag.Subscriptionid"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
