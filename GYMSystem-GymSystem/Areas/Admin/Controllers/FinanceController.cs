@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using PdfSharpCore.Drawing;
 using PdfSharpCore.Pdf;
 
@@ -14,6 +15,7 @@ namespace GYMSystem_GymSystem.Areas.Admin.Controllers
     [Authorize("AdminRole")]
     public class FinanceController : Controller
     {
+
         private readonly ApplicationDbContext _context;
 
         public FinanceController(ApplicationDbContext context)
@@ -81,8 +83,30 @@ namespace GYMSystem_GymSystem.Areas.Admin.Controllers
             return View(client);
         }
 
-        //Client ses = _context.Clients.Find(id);
+        public async Task<IActionResult> Done(int? id)
+        {
+            var client = await _context.Clients
+                .Include(c => c.Branch)
+                .Include(c => c.Department)
+                .Include(c => c.Subscription)
+                .Include(c => c.Trainer)
+                .FirstOrDefaultAsync(m => m.ClientId == id);
 
+            client.pay = true;
+
+            DateTime currentDateTime = DateTime.Now;
+
+            if (client.End_Subscription > currentDateTime)
+            {
+                client.Active = true;
+            }
+            else
+            {
+                client.Active = false;
+            }
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
         //Subscription ses1 = _context.Subscriptions.Find(id);
         public async Task<IActionResult> Invoice (int? id)
         {
@@ -117,8 +141,6 @@ namespace GYMSystem_GymSystem.Areas.Admin.Controllers
             // Branch for invoice
             ViewData["BranchName"] = client.Branch.BranchName;
 
-
-            
             return View(client);
         }
         

@@ -3,65 +3,66 @@
 @{
     ViewData["Title"] = "Create";
 }
+<div class="container">
+    <h1>Create</h1>
 
-<h1>Create</h1>
-
-<h4>Trainer</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="TrainerName" class="control-label"></label>
-                <input asp-for="TrainerName" class="form-control" />
-                <span asp-validation-for="TrainerName" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" asp-for="stillWork" /> @Html.DisplayNameFor(model => model.stillWork)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="trainerSalary" class="control-label"></label>
-                <input asp-for="trainerSalary" class="form-control" />
-                <span asp-validation-for="trainerSalary" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HiringDate" class="control-label"></label>
-                <input asp-for="HiringDate" class="form-control" />
-                <span asp-validation-for="HiringDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="trainerNumber" class="control-label"></label>
-                <input asp-for="trainerNumber" class="form-control" />
-                <span asp-validation-for="trainerNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="trainerAddress" class="control-label"></label>
-                <input asp-for="trainerAddress" class="form-control" />
-                <span asp-validation-for="trainerAddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="trainerEmail" class="control-label"></label>
-                <input asp-for="trainerEmail" class="form-control" />
-                <span asp-validation-for="trainerEmail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SubscriptionSalary" class="control-label"></label>
-                <input asp-for="SubscriptionSalary" class="form-control" />
-                <span asp-validation-for="SubscriptionSalary" class="text-danger"></span>
-            </div>
+    <h4>Trainer</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="TrainerName" class="control-label"></label>
+                    <input asp-for="TrainerName" class="form-control" />
+                    <span asp-validation-for="TrainerName" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" asp-for="stillWork" /> @Html.DisplayNameFor(model => model.stillWork)
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label asp-for="trainerSalary" class="control-label"></label>
+                    <input asp-for="trainerSalary" class="form-control" />
+                    <span asp-validation-for="trainerSalary" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="HiringDate" class="control-label"></label>
+                    <input asp-for="HiringDate" class="form-control" />
+                    <span asp-validation-for="HiringDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="trainerNumber" class="control-label"></label>
+                    <input asp-for="trainerNumber" class="form-control" />
+                    <span asp-validation-for="trainerNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="trainerAddress" class="control-label"></label>
+                    <input asp-for="trainerAddress" class="form-control" />
+                    <span asp-validation-for="trainerAddress" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="trainerEmail" class="control-label"></label>
+                    <input asp-for="trainerEmail" class="form-control" />
+                    <span asp-validation-for="trainerEmail" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SubscriptionSalary" class="control-label"></label>
+                    <input asp-for="SubscriptionSalary" class="form-control" />
+                    <span asp-validation-for="SubscriptionSalary" class="text-danger"></span>
+                </div>
             
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
 
 @section Scripts {
